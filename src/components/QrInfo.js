@@ -3,7 +3,7 @@ import axiosInstance from "../utils/axiosConfig";
 import CircularProgress from "@mui/material/CircularProgress";
 import io from 'socket.io-client';
 import { FaRegSmileBeam, FaRegSadTear } from "react-icons/fa";
-import { MdPhoneAndroid } from "react-icons/md";
+import { MdPhoneAndroid, email } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
 const QrInfo = ({ qrData, 
@@ -47,6 +47,7 @@ const QrInfo = ({ qrData,
     "redeemClaimed:",
     redeemClaimed
   );
+  console.log(qrData.product);
 
   // const handleRedeemClick = async () => {
   //   try {
@@ -95,7 +96,7 @@ const QrInfo = ({ qrData,
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center pt-4">
       {/* Top div: Scheme info, only if showRedeem is true */}
-      {(showRedeem || redeemClaimed) && (
+      {((showRedeem || redeemClaimed) && qrData.scheme_data) && (
         <div className="w-full max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mb-6 flex flex-col items-center justify-center">
           {redeemClaimed ? (
             <>
@@ -216,7 +217,7 @@ const QrInfo = ({ qrData,
               </tr>
               <tr className="bg-white border-b">
                 <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  Company Registration Number
+                  Mfg. License No.
                 </th>
                 <td className="px-6 py-4">
                   {qrData.company_data?.registration_no || "-"}
@@ -298,14 +299,14 @@ const QrInfo = ({ qrData,
                   )}
                 </td>
               </tr>
-              <tr className="bg-white border-b">
+              {/* <tr className="bg-white border-b">
                 <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                   Cautionary Symbol
                 </th>
                 <td className="px-6 py-4">
                   {product.cautionary_symbol || "-"}
                 </td>
-              </tr>
+              </tr> */}
               <tr className="bg-white border-b">
                 <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                   Antidote Statement
@@ -328,6 +329,14 @@ const QrInfo = ({ qrData,
                 </th>
                 <td className="px-6 py-4">
                   {qrData.company_data?.customer_care_no || "-"}
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  Email
+                </th>
+                <td className="px-6 py-4">
+                  {qrData.company_data?.email || "-"}
                 </td>
               </tr>
               {/* Add extra fields if present */}

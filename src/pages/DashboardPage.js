@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosConfig"; // Import your centralized axios instance
-import { QrReader } from "react-qr-reader";
+
 
 const DashboardPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -177,24 +177,15 @@ const DashboardPage = () => {
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-96">
             <h2 className="text-xl font-semibold mb-4 text-gray-800">
-              Scan QR Code
+              Enter QR ID
             </h2>
-            <QrReader
-              delay={300}
-              onError={(err) => {
-                console.error("QR Scan Error:", err);
-              }}
-              onScan={(data) => {
-                if (data) setQrId(data); // Set QR ID from scanned content
-              }}
-              style={{ width: "100%" }}
-              facingMode="environment" // Prefer rear camera on mobile
+            <input
+              type="text"
+              value={qrId}
+              onChange={(e) => setQrId(e.target.value)}
+              placeholder="QR ID"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <div className="mt-4 text-center text-gray-600 text-sm">
-              {qrId
-                ? `Scanned QR ID: ${qrId}`
-                : "Align QR code within the frame"}
-            </div>
             <div className="flex justify-end space-x-4 mt-4">
               <button
                 className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300"
@@ -214,7 +205,7 @@ const DashboardPage = () => {
             </div>
           </div>
         </div>
-      )} 
+      )}
     </div>
   );
 };
